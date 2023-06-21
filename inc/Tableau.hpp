@@ -12,7 +12,9 @@ class Tableau{
     Tableau(Tableau const& aCopier);
 
     Tableau& perturbation(int x, int y);
-    Tableau& propagation(Case const& a);
+    
+    bool testVivant(Case const& a);
+    bool testMort(Case const& a);
     Tableau update();
 
     void afficher(std::ostream &flux);

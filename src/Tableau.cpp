@@ -36,29 +36,59 @@ Tableau& Tableau::perturbation(int x, int y){           // Change l'état de la 
     return *this;
 }
 
-Tableau& Tableau::propagation(Case const& a){           // Change les états de façon aléatoire des cases adjacente à une case de valeur 1
+bool Tableau::testVivant(Case const& a){           // Change les états de façon aléatoire des cases adjacente à une case de valeur 1
     int const x(a.getX()), y(a.getY());
-    int random(0);
-    tab[20*y+x].changementEtat(1);
+    tab[20*y+x].changementEtat(0);
+    int compteurVoisin(0);
     for(int j=y-1; j<y+2; j++){               
         for(int i=x-1; i<x+2; i++){
-            random = rand()%5;
-            if(random==1 && tab[20*j+i].getE() !=1 && tab[20*j+i].getE() != 2){
-                tab[20*j+i].changementEtat(1);
+            if(tab[20*j+i].getE() == 1){
+                compteurVoisin ++;
+            }
+        }
+    }
+    tab[20*y+x].changementEtat(1);
+    if(compteurVoisin == 2 || compteurVoisin == 3){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+bool Tableau::testMort(Case const& a){           // Change les états de façon aléatoire des cases adjacente à une case de valeur 1
+    int const x(a.getX()), y(a.getY());
+    int compteurVoisin(0);
+    for(int j=y-1; j<y+2; j++){               
+        for(int i=x-1; i<x+2; i++){
+            if(tab[20*j+i].getE() == 1){
+                compteurVoisin ++;
+            }
+        }
+    }
+    if(compteurVoisin == 3){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+Tableau Tableau::update(){
+    Tableau temp(*this);
+    for(int k=0; k<400; k++){
+        if(tab[k].getE()==1){
+            if(!(temp.testVivant(tab[k]))){
+                tab[k].changementEtat(0);
+            }
+        }
+        if(tab[k].getE()==0){
+            if(temp.testMort(tab[k])){
+                tab[k].changementEtat(1);
             }
         }
     }
     return *this;
-}
-
-Tableau Tableau::update(){
-    Tableau temp;
-    for(int k=0; k<400; k++){
-        if(tab[k].getE()==1){
-            temp.propagation(tab[k]);
-        }
-    }
-    return temp;
 }
 
  void Tableau::afficher(std::ostream &flux){
