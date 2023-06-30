@@ -2,6 +2,7 @@
 #define TABLEAU_HPP_DEFINED
 
 #include<iostream>
+#include<gtk/gtk.h>
 
 #include"Case.hpp"
 
@@ -16,7 +17,8 @@ class Tableau{
     bool testVivant(Case const& a);
     bool testMort(Case const& a);
     Tableau update();
-
+    int giveE(int x, int y);
+    
     void afficher(std::ostream &flux);
 
     Tableau& operator=(Tableau const& a);

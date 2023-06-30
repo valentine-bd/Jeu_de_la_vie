@@ -1,5 +1,6 @@
 #include<iostream>
 #include<cstdlib>
+#include<gtk/gtk.h>
 
 #include"Case.hpp"
 #include"Tableau.hpp"
@@ -87,8 +88,15 @@ Tableau Tableau::update(){
                 tab[k].changementEtat(1);
             }
         }
+        else{
+            continue;
+        }
     }
     return *this;
+}
+
+int Tableau::giveE(int x, int y){
+    return tab[20*y+x].getE();
 }
 
  void Tableau::afficher(std::ostream &flux){
