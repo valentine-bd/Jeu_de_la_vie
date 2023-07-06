@@ -1,6 +1,5 @@
 #include<iostream>
 #include<cstdlib>
-#include<gtk/gtk.h>
 
 #include"Case.hpp"
 #include"Tableau.hpp"
@@ -15,25 +14,27 @@ Tableau::Tableau(){                                     // initialise un tableau
 
                 if(j==0 || j==19 || i==0 || i==19){     // Donne la valeur 2 aux cases en bordure.
                     tab[coord] = Case(i,j,2);
+                    
                 }
                 else{
                     tab[coord] = Case(i,j);             // Donne la valeur 0 pour toutes les autres
-                }          
+                }              
         }
     }
 }
 
 Tableau::Tableau(Tableau const& aCopier){
     
-    for(int coord=0; coord<400; coord++){
-        tab[coord] = aCopier.tab[coord];
-    }
+    for(int coord = 0; coord<400; coord++){
+            tab[coord] = aCopier.tab[coord];
+        }
 }
 
 Tableau& Tableau::perturbation(int x, int y){           // Change l'état de la case aux coordonnées en attribut.
 
     int coord = 20*y+x;
     tab[coord].changementEtat(1);
+
     return *this;
 }
 
@@ -119,6 +120,11 @@ Tableau& Tableau::operator=(Tableau const& a){
         }
     }
     return *this;
+}
+
+Tableau* Tableau::getAdd(){
+
+    return this;
 }
 
 

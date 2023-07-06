@@ -26,7 +26,7 @@ int Case::getY()const{
     return c_y;
 }
 
-int Case::getE()const{
+int Case::getE(){
 
     return c_e;
 }

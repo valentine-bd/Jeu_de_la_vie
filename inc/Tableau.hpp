@@ -2,7 +2,6 @@
 #define TABLEAU_HPP_DEFINED
 
 #include<iostream>
-#include<gtk/gtk.h>
 
 #include"Case.hpp"
 
@@ -22,6 +21,7 @@ class Tableau{
     void afficher(std::ostream &flux);
 
     Tableau& operator=(Tableau const& a);
+    Tableau* getAdd();
 
     private:
     Case tab[400];

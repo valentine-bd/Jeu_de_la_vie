@@ -12,7 +12,7 @@ class Case{
 
     int getX()const;
     int getY()const;
-    int getE()const;
+    int getE();
     Case& changementEtat(int e);
 
     void afficher(std::ostream &flux)const;
