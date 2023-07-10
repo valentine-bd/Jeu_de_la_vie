@@ -4,7 +4,7 @@
 #include"Case.hpp"
 #include"Tableau.hpp"
 
-#define DIM 100
+#define DIM 300
 
 
 Tableau::Tableau(){                                     // initialise un tableau de 400 avec 0 comme toute valeur de e.
@@ -36,6 +36,27 @@ Tableau& Tableau::perturbation(int x, int y){           // Change l'état de la 
     int coord = DIM*y+x;
     tab[coord].changementEtat(1);
 
+    return *this;
+}
+
+Tableau& Tableau::perturbation(int coord){
+
+    tab[coord].changementEtat(1);
+    return *this;
+}
+
+Tableau& Tableau::random_perturbation(){
+
+    srand(time(NULL));
+    for(int i = 0; i<DIM*DIM; i++){
+        int rand = std::rand()%2;
+        if(rand == 1){
+            tab[i].changementEtat(1);
+        }
+        else{
+            continue;
+        }
+    }
     return *this;
 }
 

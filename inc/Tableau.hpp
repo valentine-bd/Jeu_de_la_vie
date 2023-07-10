@@ -5,7 +5,7 @@
 
 #include"Case.hpp"
 
-#define DIM 100
+#define DIM 300
 
 class Tableau{
 
@@ -14,6 +14,8 @@ class Tableau{
     Tableau(Tableau const& aCopier);
 
     Tableau& perturbation(int x, int y);
+    Tableau& perturbation(int coord);
+    Tableau& random_perturbation();
     
     bool testVivant(Case const& a);
     bool testMort(Case const& a);
