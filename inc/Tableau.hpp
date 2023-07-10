@@ -5,6 +5,8 @@
 
 #include"Case.hpp"
 
+#define DIM 100
+
 class Tableau{
 
     public:
@@ -24,7 +26,7 @@ class Tableau{
     Tableau* getAdd();
 
     private:
-    Case tab[400];
+    Case tab[DIM*DIM];
 };
 
 #endif //TABLEAU_HPP_DEFINED

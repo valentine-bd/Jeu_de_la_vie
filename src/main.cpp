@@ -1,7 +1,7 @@
 #include<iostream>
 #include<cstdlib>
 #include<ctime>
-#include<SDL2/SDL.h>
+#include<SDL.h>
 
 #include"Case.hpp"
 #include"Tableau.hpp"
@@ -44,7 +44,7 @@ int main(int argc, char *argv[]){
     if (SDL_Init(SDL_INIT_VIDEO) != 0 )
     {
         fprintf(stdout,"Échec de l'initialisation de la SDL (%s)\n",SDL_GetError());
-        return -1;
+        return EXIT_FAILURE;
     }
 
     {
@@ -66,7 +66,7 @@ int main(int argc, char *argv[]){
 
     SDL_Quit();
     
-    return 0;
+    return EXIT_SUCCESS;
 
 
 

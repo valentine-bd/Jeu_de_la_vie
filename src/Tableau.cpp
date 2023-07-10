@@ -4,15 +4,16 @@
 #include"Case.hpp"
 #include"Tableau.hpp"
 
+#define DIM 100
 
 
 Tableau::Tableau(){                                     // initialise un tableau de 400 avec 0 comme toute valeur de e.
 
-    for(int j=0 ;j<20; j++){
-        for(int i=0;i<20;i++){
-                int coord=20*j+i;
+    for(int j=0 ;j<DIM; j++){
+        for(int i=0;i<DIM;i++){
+                int coord=DIM*j+i;
 
-                if(j==0 || j==19 || i==0 || i==19){     // Donne la valeur 2 aux cases en bordure.
+                if(j==0 || j==DIM-1 || i==0 || i==DIM-1){     // Donne la valeur 2 aux cases en bordure.
                     tab[coord] = Case(i,j,2);
                     
                 }
@@ -25,14 +26,14 @@ Tableau::Tableau(){                                     // initialise un tableau
 
 Tableau::Tableau(Tableau const& aCopier){
     
-    for(int coord = 0; coord<400; coord++){
+    for(int coord = 0; coord<DIM*DIM; coord++){
             tab[coord] = aCopier.tab[coord];
         }
 }
 
 Tableau& Tableau::perturbation(int x, int y){           // Change l'état de la case aux coordonnées en attribut.
 
-    int coord = 20*y+x;
+    int coord = DIM*y+x;
     tab[coord].changementEtat(1);
 
     return *this;
@@ -40,16 +41,16 @@ Tableau& Tableau::perturbation(int x, int y){           // Change l'état de la 
 
 bool Tableau::testVivant(Case const& a){           // Change les états de façon aléatoire des cases adjacente à une case de valeur 1
     int const x(a.getX()), y(a.getY());
-    tab[20*y+x].changementEtat(0);
+    tab[DIM*y+x].changementEtat(0);
     int compteurVoisin(0);
     for(int j=y-1; j<y+2; j++){               
         for(int i=x-1; i<x+2; i++){
-            if(tab[20*j+i].getE() == 1){
+            if(tab[DIM*j+i].getE() == 1){
                 compteurVoisin ++;
             }
         }
     }
-    tab[20*y+x].changementEtat(1);
+    tab[DIM*y+x].changementEtat(1);
     if(compteurVoisin == 2 || compteurVoisin == 3){
         return true;
     }
@@ -63,7 +64,7 @@ bool Tableau::testMort(Case const& a){           // Change les états de façon 
     int compteurVoisin(0);
     for(int j=y-1; j<y+2; j++){               
         for(int i=x-1; i<x+2; i++){
-            if(tab[20*j+i].getE() == 1){
+            if(tab[DIM*j+i].getE() == 1){
                 compteurVoisin ++;
             }
         }
@@ -78,7 +79,7 @@ bool Tableau::testMort(Case const& a){           // Change les états de façon 
 
 Tableau Tableau::update(){
     Tableau temp(*this);
-    for(int k=0; k<400; k++){
+    for(int k=0; k<DIM*DIM; k++){
         if(tab[k].getE()==1){
             if(!(temp.testVivant(tab[k]))){
                 tab[k].changementEtat(0);
@@ -97,14 +98,14 @@ Tableau Tableau::update(){
 }
 
 int Tableau::giveE(int x, int y){
-    return tab[20*y+x].getE();
+    return tab[DIM*y+x].getE();
 }
 
  void Tableau::afficher(std::ostream &flux){
 
-    for(int j=0 ;j<20; j++){
-        for(int i=0;i<20;i++){
-            int coord(20*j+i);
+    for(int j=0 ;j<DIM; j++){
+        for(int i=0;i<DIM;i++){
+            int coord(DIM*j+i);
                 tab[coord].afficher(flux);
         }
         std::cout << "|" << std::endl;
@@ -115,7 +116,7 @@ Tableau& Tableau::operator=(Tableau const& a){
 
     if(this != &a){
         
-        for(int coord = 0; coord<400; coord++){
+        for(int coord = 0; coord<DIM*DIM; coord++){
             tab[coord] = a.tab[coord];
         }
     }
